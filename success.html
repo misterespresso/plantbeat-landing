@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Successful - PlantBeat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #268b07;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: checkmark 0.6s ease-in-out;
+        }
+
+        .success-icon::after {
+            content: "✓";
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #268b07;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .success-title {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .success-message {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #268b07;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1f7006;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #268b07;
+            border: 2px solid #268b07;
+        }
+
+        .btn-secondary:hover {
+            background: #268b07;
+            color: white;
+        }
+
+        .countdown {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        @media (max-width: 480px) {
+            .success-container {
+                padding: 40px 30px;
+            }
+
+            .logo h1 {
+                font-size: 1.8em;
+            }
+
+            .success-title {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon"></div>
+
+        <div class="logo">
+            <h1>🌱 PlantBeat</h1>
+        </div>
+
+        <h2 class="success-title">Password Reset Successful!</h2>
+
+        <p class="success-message">
+            Your password has been updated successfully. You can now use your new password to sign in to PlantBeat.
+        </p>
+
+        <div class="action-buttons">
+            <button id="openAppBtn" class="btn btn-primary">
+                Open PlantBeat App
+            </button>
+
+            <a href="index.html" class="btn btn-secondary">
+                Back to Website
+            </a>
+        </div>
+
+        <div class="countdown" id="countdown">
+            Attempting to open app in <span id="timer">5</span> seconds...
+        </div>
+    </div>
+
+    <script>
+        class SuccessPage {
+            constructor() {
+                this.countdown = 5;
+                this.timer = document.getElementById('timer');
+                this.countdownElement = document.getElementById('countdown');
+                this.openAppBtn = document.getElementById('openAppBtn');
+
+                this.init();
+            }
+
+            init() {
+                this.openAppBtn.addEventListener('click', this.openApp.bind(this));
+                this.startCountdown();
+            }
+
+            openApp() {
+                // Try to open the PlantBeat app via deep link
+                const plantbeatUrl = 'plantbeat://success';
+
+                // For mobile browsers, try to open the app
+                if (this.isMobile()) {
+                    window.location.href = plantbeatUrl;
+
+                    // Fallback: if app doesn't open, hide countdown and show message
+                    setTimeout(() => {
+                        this.countdownElement.innerHTML = 'If the app didn\'t open automatically, please open PlantBeat manually.';
+                    }, 3000);
+                } else {
+                    // For desktop, show a message
+                    this.countdownElement.innerHTML = 'Please open the PlantBeat app on your mobile device.';
+                }
+            }
+
+            isMobile() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            }
+
+            startCountdown() {
+                const interval = setInterval(() => {
+                    this.countdown--;
+                    this.timer.textContent = this.countdown;
+
+                    if (this.countdown <= 0) {
+                        clearInterval(interval);
+                        this.openApp();
+                    }
+                }, 1000);
+            }
+        }
+
+        // Initialize the success page functionality when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SuccessPage();
+        });
+    </script>
+</body>
+</html>
