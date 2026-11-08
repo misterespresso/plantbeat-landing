@@ -50,7 +50,7 @@
         <li><strong>A random device ID.</strong> On first launch the app creates a random ID that is not linked to your name, email, phone number or Apple or Google account. We use it to count your monthly AI uses, to limit abuse, and to check whether your device has a Pro subscription. A new ID is created if you reinstall the app.</li>
         <li><strong>Photos you send for identify or diagnose.</strong> The app resizes the photo and sends it to our server, which passes it to Google Gemini to get the answer. We do not store the photo or write it in our logs.</li>
         <li><strong>Text you send to Sage, the plant chat.</strong> Your messages, and the name, care profile and recent care history of the plant you are asking about, go to our server, which passes them to GreenPT, an AI provider based in the EU, to write the reply. We do not store the messages or write them in our logs.</li>
-        <li><strong>Care guide requests.</strong> To create an AI care guide for a plant that is not in the built-in database, the plant name is sent to our server and on to Google Gemini. The resulting guide is cached on our server for up to 90 days under the plant name only. It is not linked to you.</li>
+        <li><strong>Care guide requests.</strong> To create an AI care guide for a plant that is not in the built-in database, the plant name is sent to our server and on to GreenPT, an AI provider based in the EU. The resulting guide is cached on our server for up to 90 days under the plant name only. It is not linked to you.</li>
         <li><strong>Purchase information.</strong> If you buy PlantBeat Pro, the purchase is handled by Apple or Google. We use RevenueCat to confirm that your device has an active subscription. RevenueCat receives the random device ID and the purchase information from the store.</li>
         <li><strong>Crash reports.</strong> In some builds, crash and error reports go to Sentry. They contain technical details about the device (such as the model, operating system and app version) and the error. They do not contain your name, email, plants, photos or messages, and we attach no user ID to them.</li>
         <li><strong>Server logs.</strong> Our server writes short log lines for each request: the route, a short part of the device ID, the result, how long it took and the estimated cost. They contain no photos or message text.</li>
@@ -62,7 +62,7 @@
         <tr><th>Feature</th><th>Data sent</th><th>Company</th></tr>
         <tr><td>Identify a plant</td><td>The photo you took or picked</td><td>Google (Gemini API)</td></tr>
         <tr><td>Diagnose a problem</td><td>The photo, and for a saved plant its name, care profile and recent care history</td><td>Google (Gemini API)</td></tr>
-        <tr><td>AI care guide</td><td>The plant name</td><td>Google (Gemini API)</td></tr>
+        <tr><td>AI care guide</td><td>The plant name</td><td>GreenPT (EU)</td></tr>
         <tr><td>Sage plant chat</td><td>Your messages and the plant's name, care profile and recent care</td><td>GreenPT (EU)</td></tr>
     </table>
     <p>These features send data only when you use them, and need an internet connection. If you do not want your photo or message to go to these services, do not use these features: the rest of the app works without them and without internet. Google's and GreenPT's own terms and privacy policies also apply to their processing. AI answers can be wrong; do not rely on them for the health of people or pets.</p>
